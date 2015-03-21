@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/affiliations_label"
+        android:id="@+id/textView_affiliations"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/activity_vertical_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/affiliations_label_solo"
+        android:id="@+id/textView_affiliations_solo"
+        android:layout_alignTop="@+id/textView_affiliations"
+        android:layout_toRightOf="@+id/textView_affiliations"
+        android:layout_toEndOf="@+id/textView_affiliations"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/affiliations_label_buddy"
+        android:id="@+id/textView_affiliations_buddy"
+        android:layout_alignTop="@+id/textView_affiliations_solo"
+        android:layout_toRightOf="@+id/textView_affiliations_solo"
+        android:layout_toEndOf="@+id/textView_affiliations_solo"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/affiliations_label_team"
+        android:id="@+id/textView_affiliations_team"
+        android:layout_alignTop="@+id/textView_affiliations_buddy"
+        android:layout_toRightOf="@+id/textView_affiliations_buddy"
+        android:layout_toEndOf="@+id/textView_affiliations_buddy"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/affiliations_data_solo"
+        android:layout_below="@+id/textView_affiliations"
+        android:layout_toRightOf="@+id/textView_affiliations"
+        android:layout_toEndOf="@+id/textView_affiliations"
+        android:id="@+id/radioButton_affiliations_solo"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:checked="false" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/affiliations_data_buddy"
+        android:id="@+id/radioButton_affiliations_buddy"
+        android:layout_alignTop="@+id/radioButton_affiliations_solo"
+        android:layout_toRightOf="@+id/textView_affiliations_solo"
+        android:layout_toEndOf="@+id/textView_affiliations_solo"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:checked="false" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/affiliations_data_team"
+        android:id="@+id/radioButton_affiliations_team"
+        android:layout_below="@+id/textView_affiliations_buddy"
+        android:layout_toRightOf="@+id/textView_affiliations_buddy"
+        android:layout_toEndOf="@+id/textView_affiliations_buddy"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/disctinctions_label"
+        android:id="@+id/textView_distinctions"
+        android:layout_alignTop="@+id/textView_affiliations_team"
+        android:layout_toRightOf="@+id/textView_affiliations_team"
+        android:layout_toEndOf="@+id/textView_affiliations_team"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/distinction1"
+        android:id="@+id/textView_distinction1"
+        android:layout_alignTop="@+id/textView_distinctions"
+        android:layout_toLeftOf="@+id/radioButton_distinction1_d4"
+        android:layout_toStartOf="@+id/radioButton_distinction1_d4" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distintion_d4"
+        android:id="@+id/radioButton_distinction1_d4"
+        android:checked="false"
+        android:layout_alignTop="@+id/textView_distinction1"
+        android:layout_toLeftOf="@+id/radioButton_distinction1_d8"
+        android:layout_toStartOf="@+id/radioButton_distinction1_d8" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/distinction_d8"
+        android:id="@+id/radioButton_distinction1_d8"
+        android:checked="false"
+        android:layout_alignTop="@+id/radioButton_distinction1_d4"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/distinction2"
+        android:id="@+id/textView_distinction2"
+        android:layout_below="@+id/radioButton_distinction1_d4"
+        android:layout_alignLeft="@+id/textView_distinction1"
+        android:layout_alignStart="@+id/textView_distinction1" />
+</RelativeLayout>

@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">MHRAssistant</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_player_sheet">Iron Man</string>
+    <string name="affiliations_label">Affiliations</string>
+    <string name="affiliations_label_solo">Solo</string>
+    <string name="affiliations_label_buddy">Buddy</string>
+    <string name="affiliations_label_team">Team</string>
+    <string name="affiliations_data_solo">d10</string>
+    <string name="affiliations_data_buddy">d6</string>
+    <string name="affiliations_data_team">d8</string>
+    <string name="action_player_sheet">Player Sheet</string>
+    <string name="action_save">Save</string>
+    <string name="action_close">Close</string>
+    <string name="disctinctions_label">Distinctions</string>
+    <string name="distinction1">Billionaire Playboy</string>
+    <string name="distintion_d4">d4</string>
+    <string name="distinction_d8">d8</string>
+    <string name="distinction2">Cutting Edge Tech</string>
+</resources>
