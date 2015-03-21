@@ -14,9 +14,22 @@
     <string name="action_player_sheet">Player Sheet</string>
     <string name="action_save">Save</string>
     <string name="action_close">Close</string>
-    <string name="disctinctions_label">Distinctions</string>
+    <string name="distinctions_label">Distinctions</string>
     <string name="distinction1">Billionaire Playboy</string>
-    <string name="distintion_d4">d4</string>
+    <string name="distinction_d4">d4</string>
     <string name="distinction_d8">d8</string>
     <string name="distinction2">Cutting Edge Tech</string>
+    <string name="distinction3">Hardheaded Futurist</string>
+    <string name="stress_label">Stress</string>
+    <string name="trauma_label">Trauma</string>
+    <string name="other_label">Other</string>
+    <string name="plot_points_label">Plots Points</string>
+    <string name="opportunities_label">Opportunities</string>
+    <string name="experience_label">Experience (XP)</string>
+    <string name="plot_points_count">1</string>
+    <string name="opportunities_count">0</string>
+    <string name="experience_count">12</string>
+    <string name="stress_label_physical">Physical</string>
+    <string name="stress_label_mental">Mental</string>
+    <string name="stress_label_emotional">Emotional</string>
 </resources>
