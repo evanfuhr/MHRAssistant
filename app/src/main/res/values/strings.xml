@@ -32,4 +32,6 @@
     <string name="stress_label_physical">Physical</string>
     <string name="stress_label_mental">Mental</string>
     <string name="stress_label_emotional">Emotional</string>
+    <string name="textView_choose_hero">Choose Your Hero</string>
+    <string name="hero_button">GO</string>
 </resources>
