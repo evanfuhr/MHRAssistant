@@ -7,15 +7,16 @@
 
     <LinearLayout
         android:orientation="horizontal"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:baselineAligned="false">
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:baselineAligned="false"
+        android:layout_alignParentEnd="false">
 
         <ScrollView
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/scrollView_player_sheet_left_panel"
-            android:layout_weight="2">
+            android:layout_weight="1">
 
             <RelativeLayout
                 android:layout_width="fill_parent"
@@ -42,7 +43,7 @@
                     android:layout_marginTop="@dimen/activity_vertical_margin">
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/affiliations_label_solo"
@@ -50,7 +51,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/affiliations_label_buddy"
@@ -58,7 +59,7 @@
                         android:layout_weight="1" />
 
                     <TextView
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:text="@string/affiliations_label_team"
@@ -69,14 +70,14 @@
                 <RadioGroup
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:id="@+id/radioGroup"
+                    android:id="@+id/radioGroup_affiliations_group"
                     android:orientation="horizontal"
                     android:layout_below="@+id/linearLayout"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true">
 
                     <RadioButton
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/affiliations_data_solo"
                         android:id="@+id/radioButton_affiliations_solo"
@@ -84,7 +85,7 @@
                         android:layout_weight="1" />
 
                     <RadioButton
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/affiliations_data_buddy"
                         android:id="@+id/radioButton_affiliations_buddy"
@@ -92,7 +93,7 @@
                         android:layout_weight="1" />
 
                     <RadioButton
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:text="@string/affiliations_data_team"
                         android:id="@+id/radioButton_affiliations_team"
@@ -105,9 +106,8 @@
                     android:textAppearance="?android:attr/textAppearanceLarge"
                     android:text="@string/distinctions_label"
                     android:id="@+id/textView_distinctions"
-                    android:layout_below="@+id/radioGroup"
-                    android:layout_alignLeft="@+id/textView_affiliations_label"
-                    android:layout_alignStart="@+id/textView_affiliations_label"
+                    android:layout_below="@+id/radioGroup_affiliations_group"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="@dimen/activity_vertical_margin" />
 
                 <TextView
@@ -402,18 +402,11 @@
             </RelativeLayout>
         </ScrollView>
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_weight="1">
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent">
-
-            </RelativeLayout>
-        </LinearLayout>
+        <ScrollView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/scrollView_player_sheet_right_panel"
+            android:layout_weight="2" />
 
     </LinearLayout>
 </RelativeLayout>
