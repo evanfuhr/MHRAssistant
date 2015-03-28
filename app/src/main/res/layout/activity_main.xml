@@ -14,31 +14,27 @@
         android:layout_alignParentBottom="false"
         android:layout_centerHorizontal="true" />
 
-    <TableLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/scrollView_hero_list"
         android:layout_below="@+id/textView_choose_hero"
         android:layout_centerHorizontal="true"
-        android:stretchColumns="1"
-        android:id="@+id/TableLayout_hero_table">
+        android:layout_marginTop="@dimen/activity_vertical_margin"
+        android:fillViewport="false"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
 
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:layout_column="1"
-                android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Hero 1"
-                android:id="@+id/textView_hero_1" />
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/hero_button"
-                android:id="@+id/button_hero_1" />
-        </TableRow>
-
-    </TableLayout>
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignTop="@+id/scrollView_hero_list"
+            android:layout_alignLeft="@+id/scrollView_hero_list"
+            android:layout_alignStart="@+id/scrollView_hero_list"
+            android:id="@+id/LinearLayout_hero_list"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"></LinearLayout>
+    </ScrollView>
 
 </RelativeLayout>
