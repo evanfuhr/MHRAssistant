@@ -17,44 +17,24 @@ import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
+    public static final String HERO_ID = "heroID";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        final LinearLayout hero_list = (LinearLayout) findViewById(R.id.LinearLayout_hero_list);
-
-        //Rows will be as wide as the table, but wrap content vertically
-        //LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(
-        //        LinearLayout.LayoutParams.MATCH_PARENT, LinearLayout.LayoutParams.WRAP_CONTENT);
-        //buttonParams.topMargin = android.R.dimen
-
-
-
-        //Buttons will always be aligned to the right of the table
-        for (int j=1;j<=20;j++) {
-
-            //Create hero button
-            final Button hero_button = new Button(this);
-            hero_button.setText("Hero "+j);
-            //Use the hero id from the hero table when that part is built
-            hero_button.setId(j+1);
-            //Set click listener for the button
-            hero_button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    onClickButtonPlayerSheet(view);
-                }
-            });
-
-            //Add the hero button to the table row
-            hero_list.addView(hero_button);
-
-        }
+        generateHeroButtonList();
     }
 
     private void onClickButtonPlayerSheet(View view) {
+        //Get the ID associated to the clicked button
+        int hero_id = view.getId();
+
+        //Build the intent to load the player sheet
         Intent intent = new Intent(this, PlayerSheetActivity.class);
+        //Load the hero ID to send to the player sheet
+        intent.putExtra(HERO_ID, hero_id);
+
         startActivity(intent);
     }
 
@@ -111,5 +91,34 @@ public class MainActivity extends ActionBarActivity {
 
     void onClickMenuClose(MenuItem item) {
         finish();
+    }
+
+    void generateHeroButtonList() {
+        final LinearLayout hero_list = (LinearLayout) findViewById(R.id.LinearLayout_hero_list);
+
+
+        //Determine how many heros there are
+        int hero_count = 20;
+
+        for (int j=1;j<=hero_count;j++) {
+
+            //Create hero button
+            final Button hero_button = new Button(this);
+            hero_button.setText("Hero "+j);
+            //Use the hero id from the hero table when that part is built
+            //noinspection ResourceType
+            hero_button.setId(j);
+            //Set click listener for the button
+            hero_button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    onClickButtonPlayerSheet(view);
+                }
+            });
+
+            //Add the hero button to the table row
+            hero_list.addView(hero_button);
+
+        }
     }
 }

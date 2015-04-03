@@ -406,7 +406,23 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:id="@+id/scrollView_player_sheet_right_panel"
-            android:layout_weight="2" />
+            android:layout_weight="2" >
+
+            <RelativeLayout
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:text="Large Text"
+                    android:id="@+id/textView"
+                    android:layout_centerVertical="true"
+                    android:layout_centerHorizontal="true" />
+            </RelativeLayout>
+        </ScrollView>
 
     </LinearLayout>
+
 </RelativeLayout>

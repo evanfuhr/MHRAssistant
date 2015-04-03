@@ -1,9 +1,11 @@
 package com.example.evan.mhrassistant;
 
+import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -13,6 +15,13 @@ public class PlayerSheetActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_sheet);
+
+        Intent intent = getIntent();
+        int hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
+        String hero_name = "Hero "+hero_id;
+
+        TextView textView = (TextView) findViewById(R.id.textView);
+        textView.setText(hero_name);
     }
 
 
