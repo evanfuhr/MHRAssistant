@@ -5,23 +5,38 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 
 public class PlayerSheetActivity extends ActionBarActivity {
 
+    Hero _hero;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_player_sheet);
 
+        //Get hero id passed to this activity
         Intent intent = getIntent();
         int hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
-        String hero_name = "Hero "+hero_id;
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        Hero hero = db.getSingleHero(hero_id);
+        //_hero.setID(hero.getID());
+        //_hero.setHeroName(hero.getHeroName());
+        //_hero.set_plot_points(hero.get_plot_points());
+
+        String hero_name = hero.getHeroName();
+        //String hero_name = "Bob";
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText(hero_name);
+
+        Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
+        //setOtherData();
     }
 
 
@@ -69,5 +84,10 @@ public class PlayerSheetActivity extends ActionBarActivity {
 
     void onClickMenuClose(MenuItem item) {
         finish();
+    }
+
+    void setOtherData() {
+        //EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
+        //plot_points.setText(hero.get_plot_points());
     }
 }

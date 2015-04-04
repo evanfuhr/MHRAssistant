@@ -3,26 +3,38 @@ package com.example.evan.mhrassistant;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.TableLayout;
-import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import java.util.List;
 
 
 public class MainActivity extends ActionBarActivity {
-
     public static final String HERO_ID = "heroID";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        DatabaseHelper db = new DatabaseHelper(this);
+        //Insert sample hero
+        if (db.getHeroesCount() == 0) {
+            Log.d("Insert: ", "Inserting ..");
+            db.addHero(new Hero("Legacy", 2));
+            db.addHero(new Hero("Tempest", 1));
+            db.addHero(new Hero("Visionary", 4));
+            db.addHero(new Hero("Ra", 0));
+        }
+
+
+
         generateHeroButtonList();
     }
 
@@ -96,18 +108,22 @@ public class MainActivity extends ActionBarActivity {
     void generateHeroButtonList() {
         final LinearLayout hero_list = (LinearLayout) findViewById(R.id.LinearLayout_hero_list);
 
+        //Open db
+        DatabaseHelper db = new DatabaseHelper(this);
 
-        //Determine how many heros there are
-        int hero_count = 20;
+        //Determine how many heroes there are
+        int hero_count = db.getHeroesCount();
 
-        for (int j=1;j<=hero_count;j++) {
+        List<Hero> heroes = db.getAllHeroes();
+
+        for (Hero hero : heroes) {
 
             //Create hero button
             final Button hero_button = new Button(this);
-            hero_button.setText("Hero "+j);
+            hero_button.setText(hero.getHeroName());
             //Use the hero id from the hero table when that part is built
             //noinspection ResourceType
-            hero_button.setId(j);
+            hero_button.setId(hero.getID());
             //Set click listener for the button
             hero_button.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -118,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
 
             //Add the hero button to the table row
             hero_list.addView(hero_button);
-
         }
+
     }
 }
