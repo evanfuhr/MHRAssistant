@@ -77,7 +77,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_HERO_NAME, hero.getHeroName());
-        if (hero.get_plot_points() != null) {
+        if (hero.get_plot_points() > -1) {
             values.put(KEY_PLOT_POINTS, hero.get_plot_points());
         }
         //insert row
@@ -91,13 +91,18 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         Hero hero = new Hero();
 
-        Cursor cursor = db.query(TABLE_HERO, new String[] {
+        //Raw query
+        String selectQuery = "SELECT * FROM " + TABLE_HERO + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        //Parameterized query
+        /**Cursor cursor = db.query(TABLE_HERO, new String[] {
                 KEY_ID, KEY_HERO_NAME, KEY_PLOT_POINTS }
                 , KEY_ID + "=?" + String.valueOf(id)
                 , null
                 , null
                 , null
-                , null);
+                , null);**/
         if (cursor.getCount() > 0) {
             cursor.moveToFirst();
             hero.setID(Integer.parseInt(cursor.getString(0)));

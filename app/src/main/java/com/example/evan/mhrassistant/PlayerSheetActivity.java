@@ -24,19 +24,13 @@ public class PlayerSheetActivity extends ActionBarActivity {
         int hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
 
         DatabaseHelper db = new DatabaseHelper(this);
-        Hero hero = db.getSingleHero(hero_id);
-        //_hero.setID(hero.getID());
-        //_hero.setHeroName(hero.getHeroName());
-        //_hero.set_plot_points(hero.get_plot_points());
-
-        String hero_name = hero.getHeroName();
-        //String hero_name = "Bob";
+        _hero = db.getSingleHero(hero_id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
-        textView.setText(hero_name);
+        textView.setText((CharSequence) _hero.getHeroName());
 
         Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
-        //setOtherData();
+        setOtherData();
     }
 
 
@@ -87,7 +81,8 @@ public class PlayerSheetActivity extends ActionBarActivity {
     }
 
     void setOtherData() {
-        //EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
-        //plot_points.setText(hero.get_plot_points());
+        //int plot_points_count = _hero.get_plot_points();
+        EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
+        plot_points.setText((CharSequence) Integer.toString(_hero.get_plot_points()));
     }
 }

@@ -7,7 +7,7 @@ public class Hero {
 
     private int _id;
     private String _hero_name;
-    private Integer _plot_points;
+    private int _plot_points;
 
     public Hero() {
 
@@ -42,7 +42,7 @@ public class Hero {
         this._hero_name = hero_name;
     }
 
-    public Integer get_plot_points() {
+    public int get_plot_points() {
         return _plot_points;
     }
     public void set_plot_points(Integer plot_points) {
