@@ -2,7 +2,7 @@
     <string name="app_name">MHRAssistant</string>
 
     <string name="action_settings">Settings</string>
-    <string name="title_activity_player_sheet">Iron Man</string>
+    <string name="title_activity_player_sheet">Player Sheet</string>
     <string name="affiliations_label">Affiliations</string>
     <string name="affiliations_label_solo">Solo</string>
     <string name="affiliations_label_buddy">Buddy</string>

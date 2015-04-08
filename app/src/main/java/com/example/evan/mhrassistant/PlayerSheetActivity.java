@@ -1,6 +1,5 @@
 package com.example.evan.mhrassistant;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -82,9 +81,31 @@ public class PlayerSheetActivity extends ActionBarActivity {
         finish();
     }
 
+    void setAffiliations() {
+
+    }
+
+    void setDistinctions() {
+
+    }
+
+    void setStress() {
+
+    }
+
+    void setTrauma() {
+
+    }
+
     void setOtherData() {
-        //int plot_points_count = _hero.get_plot_points();
+        //int plot_points_count = _hero.getPlotPoints();
         EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
-        plot_points.setText((CharSequence) Integer.toString(_hero.get_plot_points()));
+        plot_points.setText((CharSequence) Integer.toString(_hero.getPlotPoints()));
+
+        EditText opportunities = (EditText) findViewById(R.id.editText_opportunities_count);
+        opportunities.setText( Integer.toString(_hero.getOpportunities()));
+
+        EditText xp = (EditText) findViewById(R.id.editText_experience_count);
+        xp.setText((Integer.toString(_hero.getXP())));
     }
 }

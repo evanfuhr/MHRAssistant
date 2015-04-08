@@ -7,7 +7,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,9 +41,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + KEY_ID + " INTEGER PRIMARY KEY"
             + ", " + KEY_HERO_NAME + " TEXT"
             + ", " + KEY_PLOT_POINTS + " INTEGER"
-            //+ ", " + KEY_OPPORTUNITIES + " INTEGER"
-            //+ ", " + KEY_XP + " INTEGER"
-            //+ ", " + KEY_HERO_SECRET_IDENTITY + " TEXT"
+            + ", " + KEY_OPPORTUNITIES + " INTEGER"
+            + ", " + KEY_XP + " INTEGER"
+            + ", " + KEY_HERO_SECRET_IDENTITY + " TEXT"
             + ")";
 
     public DatabaseHelper(Context context) {
@@ -77,8 +76,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
         ContentValues values = new ContentValues();
         values.put(KEY_HERO_NAME, hero.getHeroName());
-        if (hero.get_plot_points() > -1) {
-            values.put(KEY_PLOT_POINTS, hero.get_plot_points());
+        if (hero.getPlotPoints() > -1) {
+            values.put(KEY_PLOT_POINTS, hero.getPlotPoints());
+        }
+        if (hero.getOpportunities() > -1) {
+            values.put(KEY_OPPORTUNITIES, hero.getOpportunities());
+        }
+        if (hero.getXP() > -1) {
+            values.put(KEY_XP, hero.getXP());
+        }
+        if (hero.getSecretIdentity() != null) {
+            values.put(KEY_HERO_SECRET_IDENTITY, hero.getSecretIdentity());
         }
         //insert row
         db.insert(TABLE_HERO, null, values);
@@ -107,11 +115,17 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             cursor.moveToFirst();
             hero.setID(Integer.parseInt(cursor.getString(0)));
             hero.setHeroName(cursor.getString(1));
-            hero.set_plot_points(Integer.parseInt(cursor.getString(2)));
+            hero.setPlotPoints(Integer.parseInt(cursor.getString(2)));
+            hero.setOpportunities(Integer.parseInt(cursor.getString(3)));
+            hero.setXP(Integer.parseInt(cursor.getString(4)));
+            hero.setSecretIdentity(cursor.getString(5));
         } else {
             hero.setID(-1);
             hero.setHeroName("Failed");
-            hero.set_plot_points(-1);
+            hero.setPlotPoints(-1);
+            hero.setOpportunities(-1);
+            hero.setXP(-1);
+            hero.setSecretIdentity("Failed Identity");
         }
 
 
@@ -151,6 +165,26 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //cursor.close();
 
         return cursor.getCount();
+    }
+
+    //Update hero record
+    public int updateHero(Hero hero) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Add values to update record
+        ContentValues values = new ContentValues();
+        if (hero.getPlotPoints() > -1) {
+            values.put(KEY_PLOT_POINTS, hero.getPlotPoints());
+        }
+        if (hero.getOpportunities() > -1) {
+            values.put(KEY_OPPORTUNITIES, hero.getOpportunities());
+        }
+        if (hero.getXP() > -1) {
+            values.put(KEY_XP, hero.getXP());
+        }
+
+        //Update the row
+        return db.update(TABLE_HERO, values, KEY_ID + " =? ", new String[] {String.valueOf(hero.getID())});
     }
 
 }

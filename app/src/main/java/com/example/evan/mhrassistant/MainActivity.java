@@ -26,11 +26,12 @@ public class MainActivity extends ActionBarActivity {
         DatabaseHelper db = new DatabaseHelper(this);
         //Insert sample hero
         if (db.getHeroesCount() == 0) {
-            Log.d("Insert: ", "Inserting ..");
-            db.addHero(new Hero("Legacy", 2));
-            db.addHero(new Hero("Tempest", 1));
-            db.addHero(new Hero("Visionary", 4));
-            db.addHero(new Hero("Ra", 0));
+            Log.d("Insert: ", "Inserting ...");
+            db.addHero(new Hero("Iron Man", 2, 0, 25, "Tony Stark"));
+            db.addHero(new Hero("Legacy", 2, 1, 20, "Paul Parsons"));
+            db.addHero(new Hero("Tempest", 1, 0, 13, "M’kk Dall’ton"));
+            db.addHero(new Hero("Visionary", 4, 1, 4, "Vanessa Long"));
+            db.addHero(new Hero("Ra", 0, 1, 1, "Blake Washington"));
         }
 
 
