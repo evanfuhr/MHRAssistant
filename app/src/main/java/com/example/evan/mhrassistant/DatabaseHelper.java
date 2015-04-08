@@ -98,7 +98,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Parameterized query
         /**Cursor cursor = db.query(TABLE_HERO, new String[] {
                 KEY_ID, KEY_HERO_NAME, KEY_PLOT_POINTS }
-                , KEY_ID + "=?" + String.valueOf(id)
+                , KEY_ID + "=?" + new String[] { String.valueOf(id) }
                 , null
                 , null
                 , null

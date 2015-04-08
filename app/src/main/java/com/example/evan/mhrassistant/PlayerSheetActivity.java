@@ -1,5 +1,6 @@
 package com.example.evan.mhrassistant;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ public class PlayerSheetActivity extends ActionBarActivity {
         Intent intent = getIntent();
         int hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
 
+        //Get the hero
         DatabaseHelper db = new DatabaseHelper(this);
         _hero = db.getSingleHero(hero_id);
 
