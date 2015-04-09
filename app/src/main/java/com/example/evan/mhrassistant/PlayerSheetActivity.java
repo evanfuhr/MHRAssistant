@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -13,6 +14,7 @@ import android.widget.Toast;
 public class PlayerSheetActivity extends ActionBarActivity {
 
     Hero _hero;
+    Affiliation _affiliation;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,11 +28,13 @@ public class PlayerSheetActivity extends ActionBarActivity {
         //Get the hero
         DatabaseHelper db = new DatabaseHelper(this);
         _hero = db.getSingleHero(hero_id);
+        _affiliation = db.getAffiliation(hero_id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText((CharSequence) _hero.getHeroName());
 
         Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
+        setAffiliations();
         setOtherData();
     }
 
@@ -82,7 +86,13 @@ public class PlayerSheetActivity extends ActionBarActivity {
     }
 
     void setAffiliations() {
+        RadioButton solo = (RadioButton) findViewById(R.id.radioButton_affiliations_solo);
+        RadioButton buddy = (RadioButton) findViewById(R.id.radioButton_affiliations_buddy);
+        RadioButton team = (RadioButton) findViewById(R.id.radioButton_affiliations_team);
 
+        solo.setText(Integer.toString(_affiliation.getSolo()));
+        buddy.setText(Integer.toString(_affiliation.getBuddy()));
+        team.setText(Integer.toString(_affiliation.getTeam()));
     }
 
     void setDistinctions() {

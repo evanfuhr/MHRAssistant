@@ -1,6 +1,7 @@
 package com.example.evan.mhrassistant;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -24,14 +25,19 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         DatabaseHelper db = new DatabaseHelper(this);
-        //Insert sample hero
+
         if (db.getHeroesCount() == 0) {
             Log.d("Insert: ", "Inserting ...");
             db.addHero(new Hero("Iron Man", 2, 0, 25, "Tony Stark"));
+            db.addAffiliation(new Affiliation(1, 10, 6, 8));
             db.addHero(new Hero("Legacy", 2, 1, 20, "Paul Parsons"));
+            db.addAffiliation(new Affiliation(2, 10, 6, 8));
             db.addHero(new Hero("Tempest", 1, 0, 13, "M’kk Dall’ton"));
+            db.addAffiliation(new Affiliation(3, 6, 8, 10));
             db.addHero(new Hero("Visionary", 4, 1, 4, "Vanessa Long"));
+            db.addAffiliation(new Affiliation(4, 10, 6, 8));
             db.addHero(new Hero("Ra", 0, 1, 1, "Blake Washington"));
+            db.addAffiliation(new Affiliation(5, 8, 6, 10));
         }
 
 

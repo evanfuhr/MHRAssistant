@@ -24,6 +24,8 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 
     //Table names
     private static final String TABLE_HERO = "heroes";
+    private static final String TABLE_AFFILIATION = "affiliation";
+    private static final String TABLE_DISTINCTION = "distinction";
 
     //Common column names
     private static final String KEY_ID = "id";
@@ -34,6 +36,16 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_OPPORTUNITIES = "opportunities";
     private static final String KEY_XP = "xp";
     private static final String KEY_HERO_SECRET_IDENTITY = "hero_secret_identity";
+
+    //Affiliation Table - column names
+    private static final String KEY_SOLO = "solo";
+    private static final String KEY_BUDDY = "buddy";
+    private static final String KEY_TEAM = "team";
+
+    //Distinction Table - column names
+    private static final String KEY_DISTINCTION_1 = "distinction_1";
+    private static final String KEY_DISTINCTION_2 = "distinction_2";
+    private static final String KEY_DISTINCTION_3 = "distinction_3";
 
     //Table Create Statements
     //Hero Table create statement
@@ -46,6 +58,22 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + ", " + KEY_HERO_SECRET_IDENTITY + " TEXT"
             + ")";
 
+    //Affiliation Table create statement
+    public static final String CREATE_AFFILIATION_TABLE = "CREATE TABLE " + TABLE_AFFILIATION + "("
+            + KEY_ID + " INTEGER PRIMARY KEY"
+            +"," + KEY_SOLO + " INTEGER"
+            +"," + KEY_BUDDY + " INTEGER"
+            +"," + KEY_TEAM + " INTEGER"
+            + ")";
+
+    //Distinction Table create statement
+    public static final String CREATE_DISTINCTION_TABLE = "CREATE TABLE " + TABLE_DISTINCTION + "("
+            + KEY_ID + " INTEGER PRIMARY KEY"
+            +"," + KEY_DISTINCTION_1 + " TEXT"
+            +"," + KEY_DISTINCTION_2 + " TEXT"
+            +"," + KEY_DISTINCTION_3 + " TEXT"
+            + ")";
+
     public DatabaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
@@ -54,11 +82,15 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onCreate(SQLiteDatabase db) {
         db.execSQL(CREATE_TABLE_HERO);
+        db.execSQL(CREATE_AFFILIATION_TABLE);
+        db.execSQL(CREATE_DISTINCTION_TABLE);
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HERO);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_AFFILIATION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTINCTION);
 
         onCreate(db);
     }
@@ -184,7 +216,48 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         //Update the row
-        return db.update(TABLE_HERO, values, KEY_ID + " =? ", new String[] {String.valueOf(hero.getID())});
+        return db.update(TABLE_HERO, values, KEY_ID + " =? ", new String[]{String.valueOf(hero.getID())});
     }
 
+
+    //------------------------ Affiliation Table methods ------------------------------------//
+
+    //Create affiliation set
+    public void addAffiliation(Affiliation affiliation) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, affiliation.getID());
+        values.put(KEY_SOLO, affiliation.getSolo());
+        values.put(KEY_BUDDY, affiliation.getBuddy());
+        values.put(KEY_TEAM, affiliation.getTeam());
+
+        //insert the row
+        db.insert(TABLE_AFFILIATION, null, values);
+        db.close();
+    }
+
+    //Pull affiliation set
+    public Affiliation getAffiliation(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Affiliation affiliation = new Affiliation();
+
+        //Raw query
+        String selectQuery = "SELECT * FROM " + TABLE_AFFILIATION + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            affiliation.setSolo(Integer.parseInt(cursor.getString(1)));
+            affiliation.setBuddy(Integer.parseInt(cursor.getString(2)));
+            affiliation.setTeam(Integer.parseInt(cursor.getString(3)));
+        } else {
+            affiliation.setSolo(-6);
+            affiliation.setBuddy(-8);
+            affiliation.setTeam(-10);
+        }
+
+        return affiliation;
+    }
 }
