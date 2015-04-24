@@ -1,8 +1,5 @@
 package com.example.evan.mhrassistant;
 
-/**
- * Created by evanf_000 on 4/8/2015.
- */
 public class Affiliation {
 
     private int _id;

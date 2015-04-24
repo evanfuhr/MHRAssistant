@@ -214,9 +214,21 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (hero.getXP() > -1) {
             values.put(KEY_XP, hero.getXP());
         }
+        if (!hero.getHeroName().isEmpty()) {
+            values.put(KEY_HERO_NAME, hero.getHeroName());
+        }
 
         //Update the row
         return db.update(TABLE_HERO, values, KEY_ID + " =? ", new String[]{String.valueOf(hero.getID())});
+    }
+
+
+    //Delete hero record
+    public void deleteHero(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_HERO, KEY_ID + " =? ",
+                new String[] {String.valueOf(id)});
     }
 
 
@@ -259,5 +271,46 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return affiliation;
+    }
+
+    //------------------------ Distinction Table methods ------------------------------------//
+
+    //Create distinction set
+    public void addDistinction(Distinction distinction) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_ID, distinction.getID());
+        values.put(KEY_DISTINCTION_1, distinction.getDistinction1());
+        values.put(KEY_DISTINCTION_2, distinction.getDistinction2());
+        values.put(KEY_DISTINCTION_3, distinction.getDistinction3());
+
+        //insert the row
+        db.insert(TABLE_DISTINCTION, null, values);
+        db.close();
+    }
+
+    //Pull distinction set
+    public Distinction getDistinction(int id) {
+        SQLiteDatabase db = this.getReadableDatabase();
+
+        Distinction distinction = new Distinction();
+
+        //Raw query
+        String selectQuery = "SELECT * FROM " + TABLE_DISTINCTION + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            distinction.setDistinction1(cursor.getString(1));
+            distinction.setDistinction2(cursor.getString(2));
+            distinction.setDistinction3(cursor.getString(3));
+        } else {
+            distinction.setDistinction1("Failed 1");
+            distinction.setDistinction2("Failed 2");
+            distinction.setDistinction3("Failed 3");
+        }
+
+        return distinction;
     }
 }

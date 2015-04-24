@@ -15,6 +15,7 @@ public class PlayerSheetActivity extends ActionBarActivity {
 
     Hero _hero;
     Affiliation _affiliation;
+    Distinction _distinction;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,12 +30,14 @@ public class PlayerSheetActivity extends ActionBarActivity {
         DatabaseHelper db = new DatabaseHelper(this);
         _hero = db.getSingleHero(hero_id);
         _affiliation = db.getAffiliation(hero_id);
+        _distinction = db.getDistinction(hero_id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText((CharSequence) _hero.getHeroName());
 
         Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
         setAffiliations();
+        setDistinctions();
         setOtherData();
     }
 
@@ -96,7 +99,13 @@ public class PlayerSheetActivity extends ActionBarActivity {
     }
 
     void setDistinctions() {
+        TextView distinction_1 = (TextView) findViewById(R.id.textView_distinction1);
+        TextView distinction_2 = (TextView) findViewById(R.id.textView_distinction2);
+        TextView distinction_3 = (TextView) findViewById(R.id.textView_distinction3);
 
+        distinction_1.setText(_distinction.getDistinction1());
+        distinction_2.setText(_distinction.getDistinction2());
+        distinction_3.setText(_distinction.getDistinction3());
     }
 
     void setStress() {
