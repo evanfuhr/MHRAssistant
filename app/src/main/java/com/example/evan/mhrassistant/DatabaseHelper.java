@@ -26,6 +26,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String TABLE_HERO = "heroes";
     private static final String TABLE_AFFILIATION = "affiliation";
     private static final String TABLE_DISTINCTION = "distinction";
+    private static final String TABLE_STRESS_TRAUMA = "stress_trauma";
 
     //Common column names
     private static final String KEY_ID = "id";
@@ -47,6 +48,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     private static final String KEY_DISTINCTION_2 = "distinction_2";
     private static final String KEY_DISTINCTION_3 = "distinction_3";
 
+    //StressTrauma Table - column names
+    private static final String KEY_STRESS_PHYSICAL = "stress_physical";
+    private static final String KEY_STRESS_MENTAL = "stress_mental";
+    private static final String KEY_STRESS_EMOTIONAL = "stress_emotional";
+    private static final String KEY_TRAUMA_PHYSICAL = "trauma_physical";
+    private static final String KEY_TRAUMA_MENTAL = "trauma_mental";
+    private static final String KEY_TRAUMA_EMOTIONAL = "trauma_emotional";
+
     //Table Create Statements
     //Hero Table create statement
     public static final String CREATE_TABLE_HERO = "CREATE TABLE " + TABLE_HERO + "("
@@ -61,17 +70,28 @@ public class DatabaseHelper extends SQLiteOpenHelper {
     //Affiliation Table create statement
     public static final String CREATE_AFFILIATION_TABLE = "CREATE TABLE " + TABLE_AFFILIATION + "("
             + KEY_ID + " INTEGER PRIMARY KEY"
-            +"," + KEY_SOLO + " INTEGER"
-            +"," + KEY_BUDDY + " INTEGER"
-            +"," + KEY_TEAM + " INTEGER"
+            + "," + KEY_SOLO + " INTEGER"
+            + "," + KEY_BUDDY + " INTEGER"
+            + "," + KEY_TEAM + " INTEGER"
             + ")";
 
     //Distinction Table create statement
     public static final String CREATE_DISTINCTION_TABLE = "CREATE TABLE " + TABLE_DISTINCTION + "("
             + KEY_ID + " INTEGER PRIMARY KEY"
-            +"," + KEY_DISTINCTION_1 + " TEXT"
-            +"," + KEY_DISTINCTION_2 + " TEXT"
-            +"," + KEY_DISTINCTION_3 + " TEXT"
+            + "," + KEY_DISTINCTION_1 + " TEXT"
+            + "," + KEY_DISTINCTION_2 + " TEXT"
+            + "," + KEY_DISTINCTION_3 + " TEXT"
+            + ")";
+
+    //StressTrauma Table create statement
+    public static final String CREATE_STRESS_TRAUMA_TABLE = "CREATE TABLE " + TABLE_STRESS_TRAUMA + "("
+            + KEY_ID + " INTEGER PRIMARY KEY"
+            + "," + KEY_STRESS_PHYSICAL + " INTEGER"
+            + "," + KEY_STRESS_MENTAL + " INTEGER"
+            + "," + KEY_STRESS_EMOTIONAL + " INTEGER"
+            + "," + KEY_TRAUMA_PHYSICAL + " INTEGER"
+            + "," + KEY_TRAUMA_MENTAL + " INTEGER"
+            + "," + KEY_TRAUMA_EMOTIONAL + " INTEGER"
             + ")";
 
     public DatabaseHelper(Context context) {
@@ -84,6 +104,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL(CREATE_TABLE_HERO);
         db.execSQL(CREATE_AFFILIATION_TABLE);
         db.execSQL(CREATE_DISTINCTION_TABLE);
+        db.execSQL(CREATE_STRESS_TRAUMA_TABLE);
     }
 
     @Override
@@ -91,12 +112,9 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_HERO);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_AFFILIATION);
         db.execSQL("DROP TABLE IF EXISTS " + TABLE_DISTINCTION);
+        db.execSQL("DROP TABLE IF EXISTS " + TABLE_STRESS_TRAUMA);
 
         onCreate(db);
-    }
-
-    public void createHeroTable(SQLiteDatabase db) {
-        db.execSQL(CREATE_TABLE_HERO);
     }
 
 
@@ -273,6 +291,14 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return affiliation;
     }
 
+    //Delete affiliation record
+    public void deleteAffiliation(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_AFFILIATION, KEY_ID + " =? ",
+                new String[] {String.valueOf(id)});
+    }
+
     //------------------------ Distinction Table methods ------------------------------------//
 
     //Create distinction set
@@ -312,5 +338,41 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         }
 
         return distinction;
+    }
+
+    //Delete distinction record
+    public void deleteDistinction(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        db.delete(TABLE_DISTINCTION, KEY_ID + " =? ",
+                new String[] {String.valueOf(id)});
+    }
+
+    //--------------------- Stress and Trauma Table methods ---------------------------------//
+
+    //Create stress and trauma set
+    public void addStressAndTrauma(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        ContentValues values = new ContentValues();
+        values.put(KEY_STRESS_PHYSICAL, 0);
+        values.put(KEY_STRESS_MENTAL, 0);
+        values.put(KEY_STRESS_EMOTIONAL, 0);
+        values.put(KEY_TRAUMA_PHYSICAL, 0);
+        values.put(KEY_TRAUMA_MENTAL, 0);
+        values.put(KEY_TRAUMA_EMOTIONAL, 0);
+
+        //insert the row
+        db.insert(TABLE_STRESS_TRAUMA, null, values);
+        db.close();
+    }
+
+    //Pull stress and trauma
+    public StressTrauma getStressTrauma(int id) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        StressTrauma stressTrauma = new StressTrauma();
+
+        return stressTrauma;
     }
 }

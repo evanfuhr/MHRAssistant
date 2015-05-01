@@ -11,7 +11,6 @@ public class Distinction {
 
     }
 
-    //Use this constructor to access an affiliation set
     public Distinction(int id, String distinction_1, String distinction_2, String distinction_3) {
         this._id = id;
         this._distinction_1 = distinction_1;

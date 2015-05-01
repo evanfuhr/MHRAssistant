@@ -178,6 +178,8 @@ public class MainActivity extends ActionBarActivity {
                 break;
             case "Delete":
                 db.deleteHero(item.getItemId());
+                db.deleteAffiliation(item.getItemId());
+                db.deleteDistinction(item.getItemId());
                 generateHeroButtonList();
                 break;
             default:
