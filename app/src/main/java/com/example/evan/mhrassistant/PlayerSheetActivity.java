@@ -6,7 +6,9 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RadioButton;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,6 +18,15 @@ public class PlayerSheetActivity extends ActionBarActivity {
     Hero _hero;
     Affiliation _affiliation;
     Distinction _distinction;
+    StressTrauma _stressTrauma;
+
+    SeekBar seekBarStressPhysical;
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        saveData();
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,13 +42,20 @@ public class PlayerSheetActivity extends ActionBarActivity {
         _hero = db.getSingleHero(hero_id);
         _affiliation = db.getAffiliation(hero_id);
         _distinction = db.getDistinction(hero_id);
+        _stressTrauma = db.getStressTrauma(hero_id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText((CharSequence) _hero.getHeroName());
 
+
+        seekBarStressPhysical = (SeekBar) findViewById(R.id.seekBar_stress_physical);
+
+
         Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
         setAffiliations();
         setDistinctions();
+        setStress();
+        setTrauma();
         setOtherData();
     }
 
@@ -80,7 +98,8 @@ public class PlayerSheetActivity extends ActionBarActivity {
     }
 
     void onClickMenuSave(MenuItem item) {
-        Toast toast = Toast.makeText(getApplicationContext(), "Save not implemented yet", Toast.LENGTH_LONG);
+        saveData();
+        Toast toast = Toast.makeText(getApplicationContext(), "Saving...", Toast.LENGTH_LONG);
         toast.show();
     }
 
@@ -109,11 +128,83 @@ public class PlayerSheetActivity extends ActionBarActivity {
     }
 
     void setStress() {
+        //Find the seekbars
+        //SeekBar seekBarStressPhysical = (SeekBar) findViewById(R.id.seekBar_stress_physical);
+        SeekBar seekBarStressMental = (SeekBar) findViewById(R.id.seekBar_stress_mental);
+        SeekBar seekBarStressEmotional = (SeekBar) findViewById(R.id.seekBar_stress_emotional);
 
+        //Find the value textviews
+        final TextView textViewStressPhysical = (TextView) findViewById(R.id.textView_stress_value_physical);
+        final TextView textViewStressMental = (TextView) findViewById(R.id.textView_stress_value_mental);
+        final TextView textViewStressEmotional = (TextView) findViewById(R.id.textView_stress_value_emotional);
+
+        //Set the seekbars to have listeners
+        seekBarStressPhysical.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(textViewStressPhysical, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        seekBarStressMental.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(textViewStressMental, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        seekBarStressEmotional.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(textViewStressEmotional, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //Set the initial progress
+        seekBarStressPhysical.setProgress(_stressTrauma.getStressPhysical());
+        seekBarStressMental.setProgress(_stressTrauma.getStressMental());
+        seekBarStressEmotional.setProgress(_stressTrauma.getStressEmotional());
     }
 
     void setTrauma() {
+        SeekBar traumaPhysical = (SeekBar) findViewById(R.id.seekBar_trauma_physical);
+        SeekBar traumaMental = (SeekBar) findViewById(R.id.seekBar_trauma_mental);
+        SeekBar traumaEmotional = (SeekBar) findViewById(R.id.seekBar_trauma_emotional);
 
+        traumaPhysical.setProgress(_stressTrauma.getTraumaPhysical());
+        traumaMental.setProgress(_stressTrauma.getTraumaMental());
+        traumaEmotional.setProgress(_stressTrauma.getTraumaEmotional());
     }
 
     void setOtherData() {
@@ -122,9 +213,67 @@ public class PlayerSheetActivity extends ActionBarActivity {
         plot_points.setText((CharSequence) Integer.toString(_hero.getPlotPoints()));
 
         EditText opportunities = (EditText) findViewById(R.id.editText_opportunities_count);
-        opportunities.setText( Integer.toString(_hero.getOpportunities()));
+        opportunities.setText(Integer.toString(_hero.getOpportunities()));
 
         EditText xp = (EditText) findViewById(R.id.editText_experience_count);
         xp.setText((Integer.toString(_hero.getXP())));
+    }
+
+    void changeStressTrauma(TextView textView, int value) {
+        String display_value;
+
+        switch(value) {
+            case 0:
+                display_value = "";
+                break;
+            case 1:
+                display_value = "d4";
+                break;
+            case 2:
+                display_value = "d6";
+                break;
+            case 3:
+                display_value = "d8";
+                break;
+            case 4:
+                display_value = "d10";
+                break;
+            case 5:
+                display_value = "d12";
+                break;
+            default:
+                display_value = "";
+        }
+
+        textView.setText(display_value);
+    }
+
+    void saveData() {
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
+        EditText opportunities = (EditText) findViewById(R.id.editText_opportunities_count);
+        EditText xp = (EditText) findViewById(R.id.editText_experience_count);
+
+        //SeekBar seekBarStressPhysical = (SeekBar) findViewById(R.id.seekBar_stress_physical);
+        SeekBar stressMental = (SeekBar) findViewById(R.id.seekBar_stress_mental);
+        SeekBar stressEmotional = (SeekBar) findViewById(R.id.seekBar_stress_emotional);
+        SeekBar traumaPhysical = (SeekBar) findViewById(R.id.seekBar_trauma_physical);
+        SeekBar traumaMental = (SeekBar) findViewById(R.id.seekBar_trauma_mental);
+        SeekBar traumaEmotional = (SeekBar) findViewById(R.id.seekBar_trauma_emotional);
+
+        _hero.setPlotPoints(Integer.parseInt(String.valueOf(plot_points.getText())));
+        _hero.setOpportunities(Integer.parseInt(String.valueOf(opportunities.getText())));
+        _hero.setXP(Integer.parseInt(String.valueOf(xp.getText())));
+
+        _stressTrauma.setStressPhysical(seekBarStressPhysical.getProgress());
+        _stressTrauma.setStressMental(stressMental.getProgress());
+        _stressTrauma.setStressEmotional(stressEmotional.getProgress());
+        _stressTrauma.setTraumaPhysical(traumaPhysical.getProgress());
+        _stressTrauma.setTraumaMental(traumaMental.getProgress());
+        _stressTrauma.setTraumaEmotional(traumaEmotional.getProgress());
+
+        db.updateHero(_hero);
+        db.updateStressTrauma(_stressTrauma);
     }
 }

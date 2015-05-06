@@ -143,7 +143,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Search for a single hero
+    //Read a single hero
     public Hero getSingleHero(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -184,7 +184,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return hero;
     }
 
-    //get all heroes
+    //Read all heroes
     public List<Hero> getAllHeroes() {
         List<Hero> heroList = new ArrayList<Hero>();
         //Select All query
@@ -207,7 +207,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return heroList;
     }
 
-    //count how many heroes there are
+    //Read how many heroes there are
     public int getHeroesCount() {
         String countQuery = "SELECT * FROM " + TABLE_HERO;
         SQLiteDatabase db = this.getReadableDatabase();
@@ -229,7 +229,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         if (hero.getOpportunities() > -1) {
             values.put(KEY_OPPORTUNITIES, hero.getOpportunities());
         }
-        if (hero.getXP() > -1) {
+        if (hero.getXP() > -9999) {
             values.put(KEY_XP, hero.getXP());
         }
         if (!hero.getHeroName().isEmpty()) {
@@ -239,7 +239,6 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         //Update the row
         return db.update(TABLE_HERO, values, KEY_ID + " =? ", new String[]{String.valueOf(hero.getID())});
     }
-
 
     //Delete hero record
     public void deleteHero(int id) {
@@ -267,7 +266,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Pull affiliation set
+    //Read affiliation set
     public Affiliation getAffiliation(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -316,7 +315,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Pull distinction set
+    //Read distinction set
     public Distinction getDistinction(int id) {
         SQLiteDatabase db = this.getReadableDatabase();
 
@@ -355,6 +354,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
+        values.put(KEY_ID, id);
         values.put(KEY_STRESS_PHYSICAL, 0);
         values.put(KEY_STRESS_MENTAL, 0);
         values.put(KEY_STRESS_EMOTIONAL, 0);
@@ -367,12 +367,67 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         db.close();
     }
 
-    //Pull stress and trauma
+    //Read stress and trauma
     public StressTrauma getStressTrauma(int id) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         StressTrauma stressTrauma = new StressTrauma();
 
+        String selectQuery = "SELECT * FROM " + TABLE_STRESS_TRAUMA + " WHERE " + KEY_ID + " = " + id;
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        if (cursor.getCount() > 0) {
+            cursor.moveToFirst();
+            stressTrauma.setStressPhysical(Integer.parseInt(cursor.getString(1)));
+            stressTrauma.setStressMental(Integer.parseInt(cursor.getString(2)));
+            stressTrauma.setStressEmotional(Integer.parseInt(cursor.getString(3)));
+
+            stressTrauma.setTraumaPhysical(Integer.parseInt(cursor.getString(4)));
+            stressTrauma.setTraumaMental(Integer.parseInt(cursor.getString(5)));
+            stressTrauma.setTraumaEmotional(Integer.parseInt(cursor.getString(6)));
+        } else {
+            addStressAndTrauma(id);
+            cursor = db.rawQuery(selectQuery, null);
+
+            stressTrauma.setStressPhysical(Integer.parseInt(cursor.getString(1)));
+            stressTrauma.setStressMental(Integer.parseInt(cursor.getString(2)));
+            stressTrauma.setStressEmotional(Integer.parseInt(cursor.getString(3)));
+
+            stressTrauma.setTraumaPhysical(Integer.parseInt(cursor.getString(4)));
+            stressTrauma.setTraumaMental(Integer.parseInt(cursor.getString(5)));
+            stressTrauma.setTraumaEmotional(Integer.parseInt(cursor.getString(6)));
+
+        }
+
         return stressTrauma;
+    }
+
+    //Update stress and trauma
+    public int updateStressTrauma(StressTrauma stressTrauma) {
+        SQLiteDatabase db = this.getWritableDatabase();
+
+        //Add values to update record
+        ContentValues values = new ContentValues();
+        if (stressTrauma.getStressPhysical() > -1) {
+            values.put(KEY_STRESS_PHYSICAL, stressTrauma.getStressPhysical());
+        }
+        if (stressTrauma.getStressMental() > -1) {
+            values.put(KEY_STRESS_MENTAL, stressTrauma.getStressMental());
+        }
+        if (stressTrauma.getStressEmotional() > -1) {
+            values.put(KEY_STRESS_EMOTIONAL, stressTrauma.getStressEmotional());
+        }
+        if (stressTrauma.getTraumaPhysical() > -1) {
+            values.put(KEY_TRAUMA_PHYSICAL, stressTrauma.getTraumaPhysical());
+        }
+        if (stressTrauma.getTraumaMental() > -1) {
+            values.put(KEY_TRAUMA_MENTAL, stressTrauma.getTraumaMental());
+        }
+        if (stressTrauma.getTraumaEmotional() > -1) {
+            values.put(KEY_TRAUMA_EMOTIONAL, stressTrauma.getTraumaEmotional());
+        }
+
+        //Update the row
+        return db.update(TABLE_STRESS_TRAUMA, values, KEY_ID + " =? ", new String[]{String.valueOf(stressTrauma.getID())});
     }
 }

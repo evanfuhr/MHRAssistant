@@ -188,12 +188,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_stress_value_physical"
+                    android:layout_below="@+id/textView_stress_label"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_stress_physical"
                     android:max="5"
-                    android:progress="3"
                     android:indeterminate="false"
                     android:layout_below="@+id/textView_stress_label_physical"
                     android:layout_alignParentLeft="true"
@@ -209,12 +218,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_stress_value_mental"
+                    android:layout_below="@+id/seekBar_stress_physical"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_stress_mental"
                     android:max="5"
-                    android:progress="0"
                     android:indeterminate="false"
                     android:layout_below="@+id/textView_stress_label_mental"
                     android:layout_alignParentLeft="true"
@@ -230,12 +248,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_stress_value_emotional"
+                    android:layout_below="@+id/seekBar_stress_mental"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_stress_emotional"
                     android:max="5"
-                    android:progress="3"
                     android:indeterminate="false"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView_stress_label_emotional"
@@ -261,12 +288,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_trauma_value_physical"
+                    android:layout_below="@+id/textView_trauma_label"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_trauma_physical"
                     android:max="5"
-                    android:progress="0"
                     android:indeterminate="false"
                     android:layout_below="@+id/textView_trauma_label_physical"
                     android:layout_alignParentLeft="true"
@@ -282,12 +318,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_trauma_value_mental"
+                    android:layout_below="@+id/seekBar_trauma_physical"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_trauma_mental"
                     android:max="5"
-                    android:progress="0"
                     android:indeterminate="false"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView_trauma_label_mental"
@@ -303,12 +348,21 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentStart="true" />
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:text=""
+                    android:id="@+id/textView_trauma_value_emotional"
+                    android:layout_below="@+id/seekBar_trauma_mental"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentEnd="true" />
+
                 <SeekBar
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:id="@+id/seekBar_trauma_emotional"
                     android:max="5"
-                    android:progress="0"
                     android:indeterminate="false"
                     android:layout_alignParentStart="true"
                     android:layout_below="@+id/textView_trauma_label_emotional"

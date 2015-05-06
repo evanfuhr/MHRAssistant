@@ -36,22 +36,27 @@ public class MainActivity extends ActionBarActivity {
             db.addHero(new Hero("Iron Man", 2, 0, 25, "Tony Stark"));
             db.addAffiliation(new Affiliation(1, 10, 6, 8));
             db.addDistinction(new Distinction(1, "Hardheaded Futurist", "Bleeding Edge Tech", "Billionaire Playboy"));
+            db.addStressAndTrauma(1);
 
             db.addHero(new Hero("Legacy", 2, 1, 20, "Paul Parsons"));
             db.addAffiliation(new Affiliation(2, 10, 6, 8));
             db.addDistinction(new Distinction(2, "America's Greatest Legacy", "Loving Father", "Shadow of a Tyrant"));
+            db.addStressAndTrauma(2);
 
             db.addHero(new Hero("Tempest", 1, 0, 13, "M’kk Dall’ton"));
             db.addAffiliation(new Affiliation(3, 6, 8, 10));
             db.addDistinction(new Distinction(3, "Inhuman", "The Resistance", "Gene-Bound Destiny"));
+            db.addStressAndTrauma(3);
 
             db.addHero(new Hero("Visionary", 4, 1, 4, "Vanessa Long"));
             db.addAffiliation(new Affiliation(4, 10, 6, 8));
             db.addDistinction(new Distinction(4, "From the Future", "Telepath at Birth", "Government Experiment"));
+            db.addStressAndTrauma(4);
 
             db.addHero(new Hero("Ra", 0, 1, 1, "Blake Washington"));
             db.addAffiliation(new Affiliation(5, 8, 6, 10));
             db.addDistinction(new Distinction(5, "Egyptian Sun God", "Imbued with Fire", "Cursed Existence"));
+            db.addStressAndTrauma(5);
         }
 
 
@@ -70,7 +75,6 @@ public class MainActivity extends ActionBarActivity {
 
         startActivity(intent);
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
