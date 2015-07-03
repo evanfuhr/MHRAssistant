@@ -1,5 +1,6 @@
 package com.example.evan.mhrassistant;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -13,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
-public class PlayerSheetActivity extends ActionBarActivity {
+public class PlayerSheetActivity extends ActionBarActivity
+implements OnHeroSelectedListener{
 
+    int _hero_id;
     Hero _hero;
     Affiliation _affiliation;
     Distinction _distinction;
@@ -35,14 +38,15 @@ public class PlayerSheetActivity extends ActionBarActivity {
 
         //Get hero id passed to this activity
         Intent intent = getIntent();
-        int hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
+        _hero_id = intent.getIntExtra(MainActivity.HERO_ID, 0);
+        onHeroSelected(_hero_id);
 
         //Get the hero
         DatabaseHelper db = new DatabaseHelper(this);
-        _hero = db.getSingleHero(hero_id);
-        _affiliation = db.getAffiliation(hero_id);
-        _distinction = db.getDistinction(hero_id);
-        _stressTrauma = db.getStressTrauma(hero_id);
+        _hero = db.getSingleHero(_hero_id);
+        _affiliation = db.getAffiliation(_hero_id);
+        _distinction = db.getDistinction(_hero_id);
+        _stressTrauma = db.getStressTrauma(_hero_id);
 
         TextView textView = (TextView) findViewById(R.id.textView);
         textView.setText((CharSequence) _hero.getHeroName());
@@ -51,12 +55,12 @@ public class PlayerSheetActivity extends ActionBarActivity {
         seekBarStressPhysical = (SeekBar) findViewById(R.id.seekBar_stress_physical);
 
 
-        Toast.makeText(this, "Hero " + hero_id, Toast.LENGTH_SHORT).show();
-        setAffiliations();
-        setDistinctions();
-        setStress();
-        setTrauma();
-        setOtherData();
+        Toast.makeText(this, "Hero " + _hero_id, Toast.LENGTH_SHORT).show();
+        //setAffiliations();
+        //setDistinctions();
+        //setStress();
+        //setTrauma();
+        //setOtherData();
     }
 
 
@@ -275,5 +279,10 @@ public class PlayerSheetActivity extends ActionBarActivity {
 
         db.updateHero(_hero);
         db.updateStressTrauma(_stressTrauma);
+    }
+
+    @Override
+    public void onHeroSelected(int hero_id) {
+
     }
 }
