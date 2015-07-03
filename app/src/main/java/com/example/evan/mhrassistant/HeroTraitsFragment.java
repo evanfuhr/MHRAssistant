@@ -15,27 +15,93 @@ import android.widget.Toast;
 public class HeroTraitsFragment extends Fragment {
 
     int _hero_id;
+
+    //Models
     Hero _hero;
     Affiliation _affiliation;
     Distinction _distinction;
     StressTrauma _stressTrauma;
 
-    SeekBar seekBarStressPhysical;
+    //Views
+    RadioButton _solo;
+    RadioButton _buddy;
+    RadioButton _team;
+
+    TextView _distinction_1;
+    TextView _distinction_2;
+    TextView _distinction_3;
+
+    TextView _textViewStressPhysical;
+    TextView _textViewStressMental;
+    TextView _textViewStressEmotional;
+
+    SeekBar _seekBarStressPhysical;
+    SeekBar _seekBarStressMental;
+    SeekBar _seekBarStressEmotional;
+
+    TextView _textViewTraumaPhysical;
+    TextView _textViewTraumaMental;
+    TextView _textViewTraumaEmotional;
+
+    SeekBar _seekBarTraumaPhysical;
+    SeekBar _seekBarTraumaMental;
+    SeekBar _seekBarTraumaEmotional;
+
+    EditText _plot_points;
+    EditText _opportunities;
+    EditText _xp;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        //seekBarStressPhysical = (SeekBar) getView().findViewById(R.id.seekBar_stress_physical);
+    }
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        View theView = inflater.inflate(R.layout.fragment_hero_traits, container, false);
+
+        _solo = (RadioButton) theView.findViewById(R.id.radioButton_affiliations_solo);
+        _buddy = (RadioButton) theView.findViewById(R.id.radioButton_affiliations_buddy);
+        _team = (RadioButton) theView.findViewById(R.id.radioButton_affiliations_team);
+
+        _distinction_1 = (TextView) theView.findViewById(R.id.textView_distinction1);
+        _distinction_2 = (TextView) theView.findViewById(R.id.textView_distinction2);
+        _distinction_3 = (TextView) theView.findViewById(R.id.textView_distinction3);
+
+        _textViewStressPhysical = (TextView) theView.findViewById(R.id.textView_stress_value_physical);
+        _textViewStressMental = (TextView) theView.findViewById(R.id.textView_stress_value_mental);
+        _textViewStressEmotional = (TextView) theView.findViewById(R.id.textView_stress_value_emotional);
+
+        _seekBarStressPhysical = (SeekBar) theView.findViewById(R.id.seekBar_stress_physical);
+        _seekBarStressMental = (SeekBar) theView.findViewById(R.id.seekBar_stress_mental);
+        _seekBarStressEmotional = (SeekBar) theView.findViewById(R.id.seekBar_stress_emotional);
+
+        _textViewTraumaPhysical = (TextView) theView.findViewById(R.id.textView_trauma_value_physical);
+        _textViewTraumaMental = (TextView) theView.findViewById(R.id.textView_trauma_value_mental);
+        _textViewTraumaEmotional = (TextView) theView.findViewById(R.id.textView_trauma_value_emotional);
+
+        _seekBarTraumaPhysical = (SeekBar) theView.findViewById(R.id.seekBar_trauma_physical);
+        _seekBarTraumaMental = (SeekBar) theView.findViewById(R.id.seekBar_trauma_mental);
+        _seekBarTraumaEmotional = (SeekBar) theView.findViewById(R.id.seekBar_trauma_emotional);
+
+        _plot_points = (EditText) theView.findViewById(R.id.editText_plot_points_count);
+        _opportunities = (EditText) theView.findViewById(R.id.editText_opportunities_count);
+        _xp = (EditText) theView.findViewById(R.id.editText_experience_count);
+
+        return theView;
+    }
+
+    public void setHero(int hero_id) {
+        _hero_id = hero_id;
         //Get the hero
         DatabaseHelper db = new DatabaseHelper(getActivity());
         _hero = db.getSingleHero(_hero_id);
         _affiliation = db.getAffiliation(_hero_id);
         _distinction = db.getDistinction(_hero_id);
         _stressTrauma = db.getStressTrauma(_hero_id);
-
-
-        seekBarStressPhysical = (SeekBar) getView().findViewById(R.id.seekBar_stress_physical);
-
 
         Toast.makeText(getActivity(), "Hero " + _hero_id, Toast.LENGTH_SHORT).show();
         setAffiliations();
@@ -45,51 +111,25 @@ public class HeroTraitsFragment extends Fragment {
         setOtherData();
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View theView = inflater.inflate(R.layout.fragment_hero_traits, container, false);
-
-        return theView;
-    }
-
     void setAffiliations() {
-        RadioButton solo = (RadioButton) getView().findViewById(R.id.radioButton_affiliations_solo);
-        RadioButton buddy = (RadioButton) getView().findViewById(R.id.radioButton_affiliations_buddy);
-        RadioButton team = (RadioButton) getView().findViewById(R.id.radioButton_affiliations_team);
-
-        solo.setText(Integer.toString(_affiliation.getSolo()));
-        buddy.setText(Integer.toString(_affiliation.getBuddy()));
-        team.setText(Integer.toString(_affiliation.getTeam()));
+        _solo.setText(Integer.toString(_affiliation.getSolo()));
+        _buddy.setText(Integer.toString(_affiliation.getBuddy()));
+        _team.setText(Integer.toString(_affiliation.getTeam()));
     }
 
     void setDistinctions() {
-        TextView distinction_1 = (TextView) getView().findViewById(R.id.textView_distinction1);
-        TextView distinction_2 = (TextView) getView().findViewById(R.id.textView_distinction2);
-        TextView distinction_3 = (TextView) getView().findViewById(R.id.textView_distinction3);
-
-        distinction_1.setText(_distinction.getDistinction1());
-        distinction_2.setText(_distinction.getDistinction2());
-        distinction_3.setText(_distinction.getDistinction3());
+        _distinction_1.setText(_distinction.getDistinction1());
+        _distinction_2.setText(_distinction.getDistinction2());
+        _distinction_3.setText(_distinction.getDistinction3());
     }
 
     void setStress() {
-        //Find the seekbars
-        SeekBar seekBarStressPhysical = (SeekBar) getView().findViewById(R.id.seekBar_stress_physical);
-        SeekBar seekBarStressMental = (SeekBar) getView().findViewById(R.id.seekBar_stress_mental);
-        SeekBar seekBarStressEmotional = (SeekBar) getView().findViewById(R.id.seekBar_stress_emotional);
-
-        //Find the value textviews
-        final TextView textViewStressPhysical = (TextView) getView().findViewById(R.id.textView_stress_value_physical);
-        final TextView textViewStressMental = (TextView) getView().findViewById(R.id.textView_stress_value_mental);
-        final TextView textViewStressEmotional = (TextView) getView().findViewById(R.id.textView_stress_value_emotional);
-
         //Set the seekbars to have listeners
-        seekBarStressPhysical.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        _seekBarStressPhysical.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                changeStressTrauma(textViewStressPhysical, progress);
+                changeStressTrauma(_textViewStressPhysical, progress);
             }
 
             @Override
@@ -102,11 +142,11 @@ public class HeroTraitsFragment extends Fragment {
 
             }
         });
-        seekBarStressMental.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        _seekBarStressMental.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                changeStressTrauma(textViewStressMental, progress);
+                changeStressTrauma(_textViewStressMental, progress);
             }
 
             @Override
@@ -119,11 +159,11 @@ public class HeroTraitsFragment extends Fragment {
 
             }
         });
-        seekBarStressEmotional.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+        _seekBarStressEmotional.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
-                changeStressTrauma(textViewStressEmotional, progress);
+                changeStressTrauma(_textViewStressEmotional, progress);
             }
 
             @Override
@@ -138,31 +178,76 @@ public class HeroTraitsFragment extends Fragment {
         });
 
         //Set the initial progress
-        seekBarStressPhysical.setProgress(_stressTrauma.getStressPhysical());
-        seekBarStressMental.setProgress(_stressTrauma.getStressMental());
-        seekBarStressEmotional.setProgress(_stressTrauma.getStressEmotional());
+        _seekBarStressPhysical.setProgress(_stressTrauma.getStressPhysical());
+        _seekBarStressMental.setProgress(_stressTrauma.getStressMental());
+        _seekBarStressEmotional.setProgress(_stressTrauma.getStressEmotional());
     }
 
     void setTrauma() {
-        SeekBar traumaPhysical = (SeekBar) getView().findViewById(R.id.seekBar_trauma_physical);
-        SeekBar traumaMental = (SeekBar) getView().findViewById(R.id.seekBar_trauma_mental);
-        SeekBar traumaEmotional = (SeekBar) getView().findViewById(R.id.seekBar_trauma_emotional);
+        //Set the seekbars to have listeners
+        _seekBarTraumaPhysical.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 
-        traumaPhysical.setProgress(_stressTrauma.getTraumaPhysical());
-        traumaMental.setProgress(_stressTrauma.getTraumaMental());
-        traumaEmotional.setProgress(_stressTrauma.getTraumaEmotional());
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(_textViewTraumaPhysical, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        _seekBarTraumaMental.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(_textViewTraumaMental, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+        _seekBarTraumaEmotional.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
+
+            @Override
+            public void onProgressChanged(SeekBar seekBar, int progress, boolean b) {
+                changeStressTrauma(_textViewTraumaEmotional, progress);
+            }
+
+            @Override
+            public void onStartTrackingTouch(SeekBar seekBar) {
+
+            }
+
+            @Override
+            public void onStopTrackingTouch(SeekBar seekBar) {
+
+            }
+        });
+
+        //Set the initial progress
+        _seekBarTraumaPhysical.setProgress(_stressTrauma.getTraumaPhysical());
+        _seekBarTraumaMental.setProgress(_stressTrauma.getTraumaMental());
+        _seekBarTraumaEmotional.setProgress(_stressTrauma.getTraumaEmotional());
     }
 
     void setOtherData() {
         //int plot_points_count = _hero.getPlotPoints();
-        EditText plot_points = (EditText) getView().findViewById(R.id.editText_plot_points_count);
-        plot_points.setText((CharSequence) Integer.toString(_hero.getPlotPoints()));
-
-        EditText opportunities = (EditText) getView().findViewById(R.id.editText_opportunities_count);
-        opportunities.setText(Integer.toString(_hero.getOpportunities()));
-
-        EditText xp = (EditText) getView().findViewById(R.id.editText_experience_count);
-        xp.setText((Integer.toString(_hero.getXP())));
+        _plot_points.setText((CharSequence) Integer.toString(_hero.getPlotPoints()));
+        _opportunities.setText(Integer.toString(_hero.getOpportunities()));
+        _xp.setText((Integer.toString(_hero.getXP())));
     }
 
     void changeStressTrauma(TextView textView, int value) {
