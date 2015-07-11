@@ -11,7 +11,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DatabaseHelper extends SQLiteOpenHelper {
+public class DataBaseHelper extends SQLiteOpenHelper {
 
     //Logcat tag
     private static final String LOG = "DatabaseHelper";
@@ -94,7 +94,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
             + "," + KEY_TRAUMA_EMOTIONAL + " INTEGER"
             + ")";
 
-    public DatabaseHelper(Context context) {
+    public DataBaseHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 

@@ -29,7 +29,7 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        DatabaseHelper db = new DatabaseHelper(this);
+        DataBaseHelper db = new DataBaseHelper(this);
 
         if (db.getHeroesCount() == 0) {
             Log.d("Insert: ", "Inserting ...");
@@ -134,7 +134,7 @@ public class MainActivity extends ActionBarActivity {
         final LinearLayout hero_list = (LinearLayout) findViewById(R.id.LinearLayout_hero_list);
         hero_list.removeAllViews();
         //Open db
-        DatabaseHelper db = new DatabaseHelper(this);
+        DataBaseHelper db = new DataBaseHelper(this);
 
         //Determine how many heroes there are
         int hero_count = db.getHeroesCount();
@@ -173,7 +173,7 @@ public class MainActivity extends ActionBarActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-        DatabaseHelper db = new DatabaseHelper(this);
+        DataBaseHelper db = new DataBaseHelper(this);
         String action = (String) item.getTitle();
         switch (action) {
             case "Edit":
@@ -194,7 +194,7 @@ public class MainActivity extends ActionBarActivity {
 
     protected void editHeroName(int id) {
         //Setup hero object for update
-        final DatabaseHelper db = new DatabaseHelper(this);
+        final DataBaseHelper db = new DataBaseHelper(this);
         final Hero hero = new Hero();
         hero.setID(id);
 

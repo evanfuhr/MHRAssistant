@@ -2,7 +2,7 @@ package com.example.evan.mhrassistant;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
+//import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,7 +58,7 @@ public class HeroTraitsFragment extends Fragment {
         //seekBarStressPhysical = (SeekBar) getView().findViewById(R.id.seekBar_stress_physical);
     }
 
-    @Nullable
+    //@Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View theView = inflater.inflate(R.layout.fragment_hero_traits, container, false);
@@ -97,7 +97,7 @@ public class HeroTraitsFragment extends Fragment {
     public void setHero(int hero_id) {
         _hero_id = hero_id;
         //Get the hero
-        DatabaseHelper db = new DatabaseHelper(getActivity());
+        DataBaseHelper db = new DataBaseHelper(getActivity());
         _hero = db.getSingleHero(_hero_id);
         _affiliation = db.getAffiliation(_hero_id);
         _distinction = db.getDistinction(_hero_id);
@@ -278,4 +278,33 @@ public class HeroTraitsFragment extends Fragment {
 
         textView.setText(display_value);
     }
+
+    /*void saveData() {
+        DatabaseHelper db = new DatabaseHelper(this);
+
+        EditText plot_points = (EditText) findViewById(R.id.editText_plot_points_count);
+        EditText opportunities = (EditText) findViewById(R.id.editText_opportunities_count);
+        EditText xp = (EditText) findViewById(R.id.editText_experience_count);
+
+        //SeekBar seekBarStressPhysical = (SeekBar) findViewById(R.id.seekBar_stress_physical);
+        SeekBar stressMental = (SeekBar) findViewById(R.id.seekBar_stress_mental);
+        SeekBar stressEmotional = (SeekBar) findViewById(R.id.seekBar_stress_emotional);
+        SeekBar traumaPhysical = (SeekBar) findViewById(R.id.seekBar_trauma_physical);
+        SeekBar traumaMental = (SeekBar) findViewById(R.id.seekBar_trauma_mental);
+        SeekBar traumaEmotional = (SeekBar) findViewById(R.id.seekBar_trauma_emotional);
+
+        _hero.setPlotPoints(Integer.parseInt(String.valueOf(plot_points.getText())));
+        _hero.setOpportunities(Integer.parseInt(String.valueOf(opportunities.getText())));
+        _hero.setXP(Integer.parseInt(String.valueOf(xp.getText())));
+
+        _stressTrauma.setStressPhysical(seekBarStressPhysical.getProgress());
+        _stressTrauma.setStressMental(stressMental.getProgress());
+        _stressTrauma.setStressEmotional(stressEmotional.getProgress());
+        _stressTrauma.setTraumaPhysical(traumaPhysical.getProgress());
+        _stressTrauma.setTraumaMental(traumaMental.getProgress());
+        _stressTrauma.setTraumaEmotional(traumaEmotional.getProgress());
+
+        db.updateHero(_hero);
+        db.updateStressTrauma(_stressTrauma);
+    }*/
 }
