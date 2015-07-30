@@ -37,13 +37,12 @@ public class Powerset {
         this._powers = powers;
     }
 
-    public boolean getPower(int id) {
-        //Get power
-        return true;
-    }
-
     public void addPower(int powerID) {
         //Add power
         this._powers[this._powers.length] = powerID;
+    }
+    public void removePower(int powerID) {
+        //Remove power
+
     }
 }
